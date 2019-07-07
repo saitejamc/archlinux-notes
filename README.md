@@ -5,8 +5,16 @@ My Arch Linux Installation Notes and Settings to make things work in one shot!
 - Boot the ISO
 - Run cfdisk and partition the drives. Simple installs will need a 1M BIOS Boot partition, a Linux Swap partition, and at least one Linux Filesystem partition.
 - Run mkfs.ext4 and mkswap on your new partitions.
-- Mount your new file system partition to /mnt.
-- Run pacstrap on /mnt. This will install the base system to /mnt.
+  > Prefarably, a 150GB of / partition and the remaining on /home partition as most of the softwares stores their local files.
+- Mount your new file system partition to /mnt. Create the directories as required,
+  ``` 
+  mkdir -p /mnt/
+  mount /dev/sda1 /mnt
+  mkdir -p /mnt/home
+  mount /dev/sda2 /mnt/home 
+  ```
+- Run `wifi-menu` to connect to your internet. If you have a wired connection, you can skip this. 
+- Run pacstrap on /mnt. This will install the base system to /mnt. It is the important step where we download all the packages.
   ``` 
   pacstrap -i /mnt /mnt/home base base-devel dialog wpa_supplicant networkmanager vim gdm sddm 
   ```
@@ -14,8 +22,8 @@ My Arch Linux Installation Notes and Settings to make things work in one shot!
   
 - Run genfstab -U /mnt >> /mnt/etc/fstab
 - Also set up any other mounts like /home, /var, or swap spaces (/dev/sdXX none swap defaults 0 0)
-- Run arch-chroot /mnt
-- Set a hostname in /etc/hostname. (echo myhostname > /etc/hostname)
+- Run `arch-chroot /mnt`
+- Set a hostname in /etc/hostname. `echo myarchlinux > /etc/hostname`
 - Run `ln -sf /usr/share/zoneinfo/Asia/Kuala_Lumpur /etc/localtime`. Use your time zone file.
 - Edit /etc/locale.gen and uncomment your locale (en_US.UTF-8 in many cases.)
 - Run `locale-gen`
@@ -28,3 +36,16 @@ My Arch Linux Installation Notes and Settings to make things work in one shot!
 - Exit chroot. You can press CTRL-D to do this.
 - Run `umount /mnt /mnt/home`
 - Run `reboot`
+
+## Desktop Environments
+
+Here comes the best part: desktop environments that are available on arch linux are the vanilla flavours. No makeup like other distros. ;) 
+
+The recommended desktop environments are as below.
+
+### Gnome
+- pacman -S gnome gnome-extra 
+
+### Plasma
+- pacman -S plasma kde-applications
+
