@@ -2,7 +2,7 @@
 My Arch Linux Installation Notes and Settings to make things work in one shot!
 
 ## Installation Steps
-- Boot the ISO
+- Boot the ISO. 
 - Run cfdisk and partition the drives. Simple installs will need a 1M BIOS Boot partition, a Linux Swap partition, and at least one Linux Filesystem partition.
 - Run mkfs.ext4 and mkswap on your new partitions.
   > Prefarably, a 150GB of / partition and the remaining on /home partition as most of the softwares stores their local files.
@@ -20,7 +20,7 @@ My Arch Linux Installation Notes and Settings to make things work in one shot!
   ```
   > Because we need internet access on our latest no-ethernet port machines ! 
   
-- Run genfstab -U /mnt >> /mnt/etc/fstab
+- Run `genfstab -U /mnt >> /mnt/etc/fstab` to generate fstab. 
 - Also set up any other mounts like /home, /var, or swap spaces (/dev/sdXX none swap defaults 0 0)
 - Run `arch-chroot /mnt`
 - Set a hostname in /etc/hostname. `echo myarchlinux > /etc/hostname`
@@ -37,6 +37,14 @@ My Arch Linux Installation Notes and Settings to make things work in one shot!
 - Run `umount /mnt /mnt/home`
 - Run `reboot`
 
+### After reboot
+- Login and connect to internet. 
+- Enable the DesktopManager of your choice. _gdm_ or _ssdm_
+  ```systemctl enable gdm```
+- Enable NetworkManager to connect to the internet on start.
+  ```systemctl start NetworkManager && systemctl enable NetworkManager```
+  
+
 ## Desktop Environments
 
 Here comes the best part: desktop environments that are available on arch linux are the vanilla flavours. No makeup like other distros. ;) 
@@ -44,8 +52,10 @@ Here comes the best part: desktop environments that are available on arch linux 
 The recommended desktop environments are as below.
 
 ### Gnome
-- pacman -S gnome gnome-extra 
+- `pacman -S gnome gnome-extra`
 
 ### Plasma
-- pacman -S plasma kde-applications
+- `pacman -S plasma kde-applications`
 
+## Other packages/groups to spice and rice up
+``` vim-plugins arc-gtk-theme arc-icons```
