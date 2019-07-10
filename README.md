@@ -43,6 +43,8 @@ My Arch Linux Installation Notes and Settings to make things work in one shot!
   ```systemctl enable gdm```
 - Enable NetworkManager to connect to the internet on start.
   ```systemctl start NetworkManager && systemctl enable NetworkManager```
+- Append the following to `GRUB_CMDLINE_LINUX_DEFAULT` in `/etc/default/grub` file and do not forget to generate the grub config file.
+```vsyscall=emulate```
   
 
 ## Desktop Environments
